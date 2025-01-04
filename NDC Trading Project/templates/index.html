@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    
+    This file is the Login Page for the N.D.C. Trading web GUI.
+    Filename: index.html
+--> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.D.C. Trading</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+	<!-----Login Section ------>	
+    <section class="login">
+        <h1>Welcome to N.D.C. Trading</h1>
+        <form class="login-form" action="/login" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            
+            <!-- Login Button -->
+            <button type="submit">Login</button>
+        </form>
+        <p><a href="{{ url_for('create_account') }}">Create Account</a> | <a href="{{ url_for('forgot_password') }}">Forgot Password?</a></p>
+    </section>
+
+</body>
+</html>
+

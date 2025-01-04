@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    
+    This file is the Account-home Page for the N.D.C. Trading web GUI.
+    Filename: account-home.html
+--> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Home - N.D.C. Trading</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>N.D.C. Trading</h1>
+    <!-- Account Home Section -->
+    <section class="account-home">
+        <!-- Welcome message -->
+        <h1>Welcome, {{ username }}!</h1> <!-- Dynamically display the username -->
+
+        <!-- Cash Balance -->
+        <div class="cash-balance">
+            <h2>Your Cash Balance</h2>
+            <p>$<span id="cash-balance">{{ "%.2f" | format(balance) }}</span></p> <!-- Format the user's cash balance -->
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <ul>
+                <li><a href="{{ url_for('account_home') }}" class="nav-link">Home</a></li>
+                <li><a href="{{ url_for('watchlist') }}" class="nav-link">Watchlist</a></li>
+                <li><a href="{{ url_for('portfolio') }}" class="nav-link">Portfolio</a></li>
+                <li><a href="{{ url_for('cash_management') }}" class="nav-link">Cash Management</a></li>
+                <li><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li> 
+            </ul>
+        </nav>
+    </section>
+</body>
+</html>

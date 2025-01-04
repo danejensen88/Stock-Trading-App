@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    
+    This file is the Portfolio Page for the N.D.C. Trading web GUI.
+    Filename: portfolio.html
+--> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - N.D.C. Trading</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>N.D.C. Trading</h1>
+    <!-- Portfolio Section -->
+    <section class="portfolio">
+        <h1>Your Portfolio</h1>
+        
+        <!-- Portfolio Table -->
+        <table class="portfolio-table">
+            <thead>
+                <tr>
+                    <th>Stock Symbol</th>
+                    <th>Quantity Owned</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in portfolio %}
+                <tr>
+                    <td>{{ stock['Symbol'] }}</td>
+                    <td>{{ stock['Quantity'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- View Transaction History Button -->
+    <a href="{{ url_for('transaction_history') }}" id="view-history-button" class="btn">
+        View Transaction History
+    </a>
+
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <ul>
+            <li><a href="{{ url_for('account_home') }}" class="nav-link">Home</a></li>
+            <li><a href="{{ url_for('watchlist') }}" class="nav-link">Watchlist</a></li>
+            <li><a href="{{ url_for('portfolio') }}" class="nav-link">Portfolio</a></li>
+            <li><a href="{{ url_for('cash_management') }}" class="nav-link">Cash Management</a></li>
+            <li><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li> 
+        </ul>
+    </nav>
+</body>
+</html>
+
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    
+    This file is the Transaction History page for the N.D.C. Trading web GUI.
+    Filename: transaction_history.html
+--> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History - N.D.C. Trading</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>N.D.C. Trading</h1>
+    <!-- Transaction History Section -->
+    <section class="transaction-history">
+        <h1>Transaction History</h1>
+        
+        <!-- Transactions Table -->
+        <table class="transaction-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Stock Symbol</th>
+                    <th>Type</th>
+                    <th>Quantity</th>
+                    <th>Price/Share</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction['TransactionDate'] }}</td>
+                    <td>{{ transaction['Symbol'] }}</td>
+                    <td>{{ transaction['TransactionType'] }}</td>
+                    <td>{{ transaction['Quantity'] }}</td>
+                    <td>${{ "%.2f" | format(transaction['PricePerShare']) }}</td>
+                    <td>${{ "%.2f" | format(transaction['Quantity'] * transaction['PricePerShare']) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <ul>
+            <li><a href="{{ url_for('account_home') }}" class="nav-link">Home</a></li>
+            <li><a href="{{ url_for('watchlist') }}" class="nav-link">Watchlist</a></li>
+            <li><a href="{{ url_for('portfolio') }}" class="nav-link">Portfolio</a></li>
+            <li><a href="{{ url_for('cash_management') }}" class="nav-link">Cash Management</a></li>
+            <li><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li> 
+        </ul>
+    </nav>
+</body>
+</html>

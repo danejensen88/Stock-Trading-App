@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    
+    This file is the Cash Management Page for the N.D.C. Trading web GUI.
+    Filename: cash-management.html
+--> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Management - N.D.C. Trading</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>N.D.C. Trading</h1>
+    <!-- Cash Management Section -->
+    <section class="cash-management">
+        <h1>Cash Management</h1>
+
+        <!-- Cash Balance Display -->
+        <div class="cash-balance">
+            <h2>Your Cash Balance</h2>
+            <p>$<span id="cash-balance">{{ "%.2f" | format(balance) }}</span></p> <!-- Dynamic balance from the backend -->
+        </div>
+
+        <!-- Deposit Section -->
+        <div class="cash-action">
+            <input type="number" id="deposit-amount" placeholder="Enter deposit amount" min="1">
+            <button id="deposit-button">Deposit</button>
+        </div>
+
+        <!-- Withdraw Section -->
+        <div class="cash-action">
+            <input type="number" id="withdraw-amount" placeholder="Enter withdrawal amount" min="1">
+            <button id="withdraw-button">Withdraw</button>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cashBalanceDisplay = document.getElementById('cash-balance');
+
+            // Fetch initial cash balance from the backend
+            let cashBalance = parseFloat(cashBalanceDisplay.textContent);
+
+            // Handle Deposit
+            document.getElementById('deposit-button').addEventListener('click', async function() {
+                const depositAmount = parseFloat(document.getElementById('deposit-amount').value);
+                if (depositAmount > 0) {
+                    try {
+                        const response = await fetch('/cash_management/deposit', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ amount: depositAmount })
+                        });
+                        if (response.ok) {
+                            const data = await response.json();
+                            cashBalance = data.new_balance;
+                            cashBalanceDisplay.textContent = cashBalance.toFixed(2);
+                            alert(`Successfully deposited $${depositAmount.toFixed(2)}.`);
+                        } else {
+                            alert('Deposit failed. Please try again.');
+                        }
+                    } catch (error) {
+                        console.error('Error during deposit:', error);
+                        alert('An error occurred. Please try again.');
+                    }
+                } else {
+                    alert('Please enter a valid deposit amount.');
+                }
+            });
+
+            // Handle Withdrawal
+            document.getElementById('withdraw-button').addEventListener('click', async function() {
+                const withdrawAmount = parseFloat(document.getElementById('withdraw-amount').value);
+                if (withdrawAmount > 0 && withdrawAmount <= cashBalance) {
+                    try {
+                        const response = await fetch('/cash_management/withdraw', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ amount: withdrawAmount })
+                        });
+                        if (response.ok) {
+                            const data = await response.json();
+                            cashBalance = data.new_balance;
+                            cashBalanceDisplay.textContent = cashBalance.toFixed(2);
+                            alert(`Successfully withdrew $${withdrawAmount.toFixed(2)}.`);
+                        } else {
+                            alert('Withdrawal failed. Please try again.');
+                        }
+                    } catch (error) {
+                        console.error('Error during withdrawal:', error);
+                        alert('An error occurred. Please try again.');
+                    }
+                } else {
+                    alert('Invalid amount. Please check your balance and try again.');
+                }
+            });
+        });
+    </script>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <ul>
+            <li><a href="{{ url_for('account_home') }}" class="nav-link">Home</a></li>
+            <li><a href="{{ url_for('watchlist') }}" class="nav-link">Watchlist</a></li>
+            <li><a href="{{ url_for('portfolio') }}" class="nav-link">Portfolio</a></li>
+            <li><a href="{{ url_for('cash_management') }}" class="nav-link">Cash Management</a></li>
+            <li><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li> 
+        </ul>
+    </nav>
+</body>
+</html>

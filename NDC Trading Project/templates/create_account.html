@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    
+    This file is the New Account Creation Page for the N.D.C. Trading web GUI.
+     Filename: create-account.html
+--> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Account - N.D.C. Trading</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>N.D.C. Trading</h1>
+    <!-- Create Account Section -->
+    <section class="create-account">
+        <h1>Create New Account</h1>
+
+        <!-- Create Account Form -->
+        <form id="create-account-form" action="{{ url_for('create_account') }}" method="POST">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <!-- Create Account Button -->
+            <button id="submit-create-account" type="submit">Create Account</button>
+
+            <!-- Cancel Button -->
+            <a href="{{ url_for('index') }}">
+                <button type="button">Cancel</button>
+            </a>  
+        </form>
+    </section>
+</body>
+</html>
+

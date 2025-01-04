@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, {{ username }}!</p>
+
+    <!-- Create New Stock Section -->
+    <section class="create-stock">
+        <h2>Create New Stock</h2>
+        <form action="{{ url_for('create_stock') }}" method="POST">
+            <label for="company_name">Company Name</label>
+            <input type="text" id="company_name" name="company_name" required>
+
+            <label for="symbol">Symbol</label>
+            <input type="text" id="symbol" name="symbol" required>
+
+            <label for="volume">Volume</label>
+            <input type="number" id="volume" name="volume" min="0" required>
+
+            <label for="initial_price">Initial Price</label>
+            <input type="number" id="initial_price" name="initial_price" min="0" step="0.01" required>
+
+            <button type="submit">Create Stock</button>
+        </form>
+    </section>
+
+    <!-- Manage Market Hours Section -->
+    <section class="manage-market-hours">
+        <h2>Manage Market Hours</h2>
+
+        <table class="market-hours-table">
+            <thead>
+                <tr>
+                    <th>Day of the Week</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Holiday</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hour in market_hours %}
+                <tr>
+                    <form action="{{ url_for('update_market_hour') }}" method="POST">
+                        <td>{{ hour['Day_of_the_Week'] }}</td>
+                        <td>
+                            <input type="time" name="start_time" value="{{ hour['Start_Time'] }}">
+                        </td>
+                        <td>
+                            <input type="time" name="end_time" value="{{ hour['End_Time'] }}">
+                        </td>
+                        <td>
+                            <input type="checkbox" name="holiday_closed" value="1" {% if hour['Holiday_Closed'] %}checked{% endif %}>
+                        </td>
+                        <td>
+                            <input type="hidden" name="market_hour_id" value="{{ hour['Market_Hours_ID'] }}">
+                            <button type="submit">Update</button>
+                        </td>
+                    </form>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>

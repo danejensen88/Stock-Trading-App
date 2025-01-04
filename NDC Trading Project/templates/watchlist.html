@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    
+    This file is the Watchlist Page for the N.D.C. Trading web GUI.
+    Filename: watchlist.html
+--> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watchlist - N.D.C. Trading</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>N.D.C. Trading</h1>
+    <!-- Watchlist Section -->
+    <section class="watchlist">
+        <h1>Watchlist</h1>
+        
+        <!-- Stock Table -->
+        <table class="stock-table">
+            <thead>
+                <tr>
+                    <th>Trend</th>
+                    <th>Stock Symbol</th>
+                    <th>Company Name</th>
+                    <th>Price</th>
+                    <th>Volume</th>
+                    <th>Capitalization</th> <!-- New Column -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                <tr>
+                    <!-- Trend Arrow -->
+                    <td>
+                        {% if stock['CurrentPrice'] > stock['OpeningPrice'] %}
+                            <span style="color: green;">&#9650;</span> <!-- Upward Arrow -->
+                        {% elif stock['CurrentPrice'] < stock['OpeningPrice'] %}
+                            <span style="color: red;">&#9660;</span> <!-- Downward Arrow -->
+                        {% else %}
+                            <span style="color: gray;">&#8212;</span> <!-- Neutral -->
+                        {% endif %}
+                    </td>
+                    <!-- Stock Data -->
+                    <td><a href="{{ url_for('stock_details') }}?symbol={{ stock['Symbol'] }}">{{ stock['Symbol'] }}</a></td>
+                    <td>{{ stock['CompanyName'] }}</td>
+                    <td>${{ "%.2f"|format(stock['CurrentPrice']) }}</td>
+                    <td>{{ "{:,}".format(stock['Volume']) }}</td>
+                    <td>${{ "{:,.2f}".format(stock['Capitalization']) }}</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <h2>*Choose a stock for more details and purchase options</h2>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <ul>
+            <li><a href="{{ url_for('account_home') }}" class="nav-link">Home</a></li>
+            <li><a href="{{ url_for('watchlist') }}" class="nav-link active">Watchlist</a></li>
+            <li><a href="{{ url_for('portfolio') }}" class="nav-link">Portfolio</a></li>
+            <li><a href="{{ url_for('cash_management') }}" class="nav-link">Cash Management</a></li>
+            <li><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li> 
+        </ul>
+    </nav>
+</body>
+</html>
