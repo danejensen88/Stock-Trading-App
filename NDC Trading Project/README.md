@@ -30,7 +30,7 @@ A Python-based stock trading application that uses a SQLite database to store us
 
 1. **Clone or Download the Repository**  
    ```bash
-   git clone https://github.com/danejensen88/Stock-Trading-App.git
+   git clone https://github.com/danekentjensen/Stock-Trading-App.git
    cd Stock-Trading-App
 2. **(Recommended) Create & Activate a Virtual Environment**
    ```bash
