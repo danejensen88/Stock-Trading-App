@@ -2,6 +2,8 @@
 
 A Python-based stock trading application that uses a SQLite database to store user, stock, and transaction data. This repo demonstrates a simple end-to-end prototype for buying and selling stocks, tracking user balances, and displaying a minimal user interface.
 
+---
+
 ## Table of Contents
 1. [Features](#features)  
 2. [Installation](#installation)  
@@ -16,11 +18,12 @@ A Python-based stock trading application that uses a SQLite database to store us
 
 ## Features
 
-- **User Registration & Login**: Users can create new accounts and securely log in.  
-- **Portfolio Management**: View holdings and account balance.  
-- **Real-Time Trading (Prototype)**: Buy or sell stocks; data is stored in an SQLite database.  
-- **Transaction History**: Keep track of all transactions in the database.  
-- **Web-Based Interface**: Simple HTML pages (optional) allow interaction without a command line.
+- **User Registration & Authentication**: Securely create accounts and log in.  
+- **Portfolio Management**: Monitor holdings and account balance.  
+- **Real-Time Trading (Prototype)**: Buy and sell stocks with data stored in SQLite.  
+- **Transaction History**: Keep track of all user transactions in the database.  
+- **Web-Based Interface**: Simple HTML-based UI for ease of use.
+- **Administative Features**: Admin can create stocks and manage market hours.
 
 ---
 
@@ -46,6 +49,8 @@ A Python-based stock trading application that uses a SQLite database to store us
 4. **Check the SQLite Database**
    - By default, the project should contain a pre-populated SQLite file (ndc_trading.db)
 
+---
+
 ## Usage
 
 1. **Run the Application**
@@ -63,25 +68,32 @@ A Python-based stock trading application that uses a SQLite database to store us
    - Press Ctrl + C in the terminal window to stop the local server.
 
 ## Project Structure
-```csharp
-Stock-Trading-App/
-├── templates/
-│   ├── index.html
-│   ├── account_home.html
-│   ├── cash_management.html
-│   ├── create_account.html
-│   ├── forget_password.html
-│   ├── portfolio.html
-│   ├── stock_details.html
-│   ├── transaction_history.html
-│   └── watchlist.html
-├── static/
-│   ├── styles.css
-│   └── stockApp.js
-├── app.py               # Main application (Flask or another framework)
-├── ndc_trading.db          # SQLite database file 
-├── requirements.txt     # Python dependencies
-└── README.md            # This file
+
+      Stock-Trading-App/
+      ├── templates/
+      │   ├── index.html
+      │   ├── account_home.html
+      │   ├── cash_management.html
+      │   ├── create_account.html
+      │   ├── forget_password.html
+      │   ├── portfolio.html
+      │   ├── stock_details.html
+      │   ├── transaction_history.html
+      │   ├── admin.html
+      │   └── watchlist.html
+      ├── static/
+      │   ├── styles.css
+      │   └── stockApp.js
+      ├── app.py               # Main application (Flask or another framework)
+      ├── ndc_trading.db          # SQLite database file 
+      ├── requirements.txt     # Python dependencies
+      └── README.md            # This file
+
+---
+
+## Database Schema
+
+
 
 
    
